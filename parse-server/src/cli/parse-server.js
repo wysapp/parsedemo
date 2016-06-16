@@ -76,5 +76,5 @@ var handleShutdown = function() {
   });
 };
 
-process.on('SIGTERM', handleShutdown);
-process.on('SIGINT', handleShutdown);
+// process.on('SIGTERM', handleShutdown);
+// process.on('SIGINT', handleShutdown);
