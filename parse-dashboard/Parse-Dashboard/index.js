@@ -106,7 +106,7 @@ p.then(config => {
   }
 
   const app = express();
-console.log(mountPath, 'sddddddddddddddddd');
+
   if (allowInsecureHTTP) app.enable('trust proxy');
   app.use(mountPath, parseDashboard(config.data, allowInsecureHTTP));
   if(!configSSLKey || !configSSLCert){

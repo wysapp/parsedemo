@@ -4,6 +4,15 @@ var RestQuery = require('./RestQuery');
 
 
 function Auth({config, isMaster = false, user, installationId} = {}) {
+  
+  this.config = config;
+  this.installationId = installationId;
+  this.isMaster = isMaster;
+  this.user = user;
+
+  this.userRoles = [];
+  this.fetchRoles = false;
+  this.rolePromise = null;  
 
 }
 

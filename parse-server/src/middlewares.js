@@ -100,8 +100,10 @@ function handleParseHeaders(req, res, next) {
   }
 
   info.app = AppCache.get(info.appId);
+  
   req.config = new Config(info.appId, mount);
   req.info = info;
+
 
   var isMaster = (info.masterKey === req.config.masterKey);
 
@@ -132,6 +134,7 @@ function handleParseHeaders(req, res, next) {
 
   if (!info.sessionToken) {
     req.auth = new auth.Auth({ config: req.config, installationId: info.installationId, isMaster: false });
+    
     next();
     return;
   }
@@ -257,6 +260,7 @@ function enforceMasterKeyAccess(req, res, next) {
 }
 
 function promiseEnforceMasterKeyAccess(request) {
+
   if (!request.auth.isMaster) {
     let error = new Error();
     error.status = 403;

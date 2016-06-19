@@ -3,6 +3,12 @@ import Parse from 'parse';
 import ParseApp from 'lib/ParseApp';
 import React from 'react';
 
+import AccountView from './AccountView.react';
+
+import AppsIndex from './Apps/AppsIndex.react';
+
+import AppsManager from 'lib/AppsManager';
+import history from 'dashboard/history';
 import Loader from 'components/Loader/Loader.react';
 
 
@@ -45,7 +51,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     get('/parse-dashboard-config.json').then(({ apps, newFeaturesInLatestVersion = [] }) => {
       this.setState({ newFeaturesInLatestVersion });
-      console.log(apps);
+      
       let appInfoPromises = apps.map(app => {
         if (app.serverURL.startsWith('https://api.parse.com/1')) {
           //api.parse.com doesn't have feature availability endpoint, fortunately we know which features
@@ -92,6 +98,7 @@ class Dashboard extends React.Component {
       });
       return Parse.Promise.when(appInfoPromises);
     }).then(function() {
+      
       Array.prototype.slice.call(arguments).forEach(app => {
         AppsManager.addApp(app);
       });
@@ -120,6 +127,21 @@ class Dashboard extends React.Component {
           </div>
         </div>
     }
+
+
+    const AppsIndexPage = () => (
+      <AccountView section='Your Apps'>
+        <AppsIndex newFeaturesInLatestVersion={this.state.newFeaturesInLatestVersion} />
+      </AccountView>
+    );
+
+
+    return <Router history={history}>
+        <Redirect from='/' to='/apps' />
+        <Route path='/' component={App}>
+          <Route path='apps' component={AppsIndexPage} />
+        </Route>
+      </Router>
   }
 }
 
