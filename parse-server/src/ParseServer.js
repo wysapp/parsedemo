@@ -18,6 +18,7 @@ import AppCache from './cache';
 import Config from './Config';
 import PromiseRouter from './PromiseRouter';
 
+import {ClassesRouter } from './Routers/ClassesRouter';
 import { FeaturesRouter } from './Routers/FeaturesRouter';
 
 import { InMemoryCacheAdapter} from './Adapters/Cache/InMemoryCacheAdapter';
@@ -222,6 +223,7 @@ class ParseServer {
     api.use(middlewares.handleParseHeaders);
 
     let routers = [
+      new ClassesRouter(),
       new FeaturesRouter(),
     ];
 

@@ -20,6 +20,7 @@ const AppsManager = {
 
 
   getAllAppsIndexStats() {
+
     return Parse.Promise.when(this.apps().map(app => {
       return Parse.Promise.when(
         app.getClassCount('_Installation').then(count => app.installations = count),

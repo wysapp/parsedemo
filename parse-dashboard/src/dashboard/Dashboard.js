@@ -134,6 +134,7 @@ class Dashboard extends React.Component {
         <AppsIndex newFeaturesInLatestVersion={this.state.newFeaturesInLatestVersion} />
       </AccountView>
     );
+    
 
 
     return <Router history={history}>

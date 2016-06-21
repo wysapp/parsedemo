@@ -85,6 +85,7 @@ export default class ParseApp {
     }
 
     let p = new Parse.Query(className).count({useMasterKey: true});
+    
     p.then(count => {
       this.classCounts.counts[className] = count;
       this.classCounts.lastFetched[className] = new Date();
