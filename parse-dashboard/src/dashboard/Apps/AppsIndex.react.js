@@ -41,7 +41,7 @@ export default class AppsIndex extends React.Component {
   render() {
     let search = this.state.search.toLowerCase();
     let apps = AppsManager.apps();
-    console.log(apps);
+   
     if ( apps.length === 0) {
       return (
         <div className={styles.empty}>
