@@ -124,6 +124,7 @@ RestQuery.prototype.execute = function() {
   });
 };
 
+
 RestQuery.prototype.buildRestWhere = function() {
   return Promise.resolve().then(() => {
     return this.getUserAndRoleACL();
