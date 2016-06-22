@@ -187,9 +187,10 @@ class ParseServer {
     if ( process.env.FACEBOOK_APP_ID) {
       AppCache.get(appId)['facebookAppIds'].push(process.env.FACEBOOK_APP_ID);
     }
-       
+    
     Config.validate(AppCache.get(appId));
     this.config = AppCache.get(appId);
+    
     // hooksController.load();    
     
     if ( process.env.TESTING) {

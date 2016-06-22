@@ -386,6 +386,7 @@ RestQuery.prototype.replaceDontSelect = function() {
 // Returns a promise for whether it was successful.
 // Populates this.response with an object that only has 'results'.
 RestQuery.prototype.runFind = function() {
+
   if (this.findOptions.limit === 0) {
     this.response = {results: []};
     return Promise.resolve();

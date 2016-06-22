@@ -16,10 +16,10 @@ export class Config {
 
   constructor(applicationId: string, mount: string) {
     let cacheInfo = AppCache.get(applicationId);
-    
     if ( !cacheInfo) {
       return;
     }
+
 
     this.applicationId = applicationId;
     this.masterKey = cacheInfo.masterKey;
@@ -32,7 +32,6 @@ export class Config {
     this.facebookAppIds = cacheInfo.facebookAppIds;
     this.allowClientClassCreation = cacheInfo.allowClientClassCreation;
     this.database = cacheInfo.databaseController;
-
     this.serverURL = cacheInfo.serverURL;
     this.publicServerURL = removeTrailingSlash(cacheInfo.publicServerURL);
     this.verifyUserEmails = cacheInfo.verifyUserEmails;
