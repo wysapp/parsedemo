@@ -66,6 +66,10 @@ export class MongoStorageAdapter {
       .then( collection => new MongoSchemaCollection(collection));
   }
 
+  getAllSchemas() {
+    return this.schemaCollection().then(schemasCollection => schemasCollection._fetchAllSchemasFrom_SCHEMA());
+  }
+
 
   ensureUniqueness(className, fieldNames, schema) {
     
