@@ -5,11 +5,19 @@ var mongodb = require('mongodb');
 
 var Parse = require('parse/node').Parse;
 
+var SchemaController = require('../Controllers/SchemaController');
+const deepcopy = require('deepcopy');
+
 function DatabaseController(adapter, { skipValidation } = {}) {
   this.adapter = adapter;
 
   this.schemaPromise = null;
   this.skipValidation = !!skipValidation;
+}
+
+
+DatabaseController.prototype.schemaCollection = function() {
+  return this.adapter.schemaCollection();
 }
 
 

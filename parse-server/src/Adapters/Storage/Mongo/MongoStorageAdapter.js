@@ -60,6 +60,12 @@ export class MongoStorageAdapter {
       .then( rawCollection => new MongoCollection(rawCollection));
   }
 
+  schemaCollection() {
+    return this.connect()
+      .then(() => this.adaptiveCollection(MongoSchemaCollectionName))
+      .then( collection => new MongoSchemaCollection(collection));
+  }
+
 
   ensureUniqueness(className, fieldNames, schema) {
     
