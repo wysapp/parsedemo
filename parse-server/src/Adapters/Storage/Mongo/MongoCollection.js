@@ -16,6 +16,11 @@ export default class MongoCollection {
       .toArray();
   }
 
+
+  count(query, {skip, limit, sort} = {}) {
+    return this._mongoCollection.count(query, {skip, limit, sort});
+  }
+
   _ensureSparseUniqueIndexInBackground(indexRequest) {
     return new Promise((resolve, reject) => {
       this._mongoCollection.ensureIndex(indexRequest, { unique: true, background: true, sparse: true}, (error, indexName) => {

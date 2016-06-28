@@ -82,6 +82,22 @@ function mongoSchemaToParseSchema(mongoSchema) {
 }
 
 
+function _mongoSchemaQueryFromNameQuery(name: string, query) {
+  return _mongoSchemaObjectFromNameFields(name, query);
+}
+
+function _mongoSchemaObjectFromNameFields(name: string, fields) {
+  let object = {_id: name};
+  if ( fields) {
+    Object.keys(fields).forEach(key => {
+      object[key] = fields[key];
+    });
+  }
+
+  return object;
+}
+
+
 class MongoSchemaCollection {
   _collection: MongoCollection;
 
@@ -92,6 +108,16 @@ class MongoSchemaCollection {
   _fetchAllSchemasFrom_SCHEMA() {
     return this._collection._rawFind({})
       .then(schemas => schemas.map(mongoSchemaToParseSchema));
+  }
+
+  _fechOneSchemaFrom_SCHEMA(name: string) {
+    return this._collection._rawFind(_mongoSchemaQueryFromNameQuery(name), {limit: 1}).then(results => {
+      if ( results.length === 1) {
+        return mongoSchemaToParseSchema(results[0]);
+      } else{
+        throw undefined;
+      }
+    });
   }
 
 }

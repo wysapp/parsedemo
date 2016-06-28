@@ -71,6 +71,12 @@ export class MongoStorageAdapter {
   }
 
 
+  getOneSchema(className) {
+    return this.schemaCollection()
+      .then(schemaCollection => schemaCollection._fechOneSchemaFrom_SCHEMA(className));
+  }
+
+
   ensureUniqueness(className, fieldNames, schema) {
     
     let indexCreationRequest = {};
@@ -89,6 +95,13 @@ export class MongoStorageAdapter {
         throw error;
       }
     });
+  }
+
+
+
+  count(className, query, schema) {
+    return this.adaptiveCollection(className)
+      .then(collection => collection.count(transformWhere(className, query, schema)));
   }
 
 

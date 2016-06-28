@@ -1,9 +1,49 @@
 import React from 'react';
+import Icon from 'components/Icon/Icon.react';
 import AccountView from 'dashboard/AccountView.react';
 import AppsManager from 'lib/AppsManager';
 import styles from 'dashboard/Apps/AppsIndex.scss';
 import { center } from 'stylesheets/base.scss';
 import { Link } from 'react-router';
+import AppBadge from 'components/AppBadge/AppBadge.react';
+
+
+
+let CountsSection = ({className, title, children}) => 
+  <div className={className}>
+    <div className={styles.section}>{title}</div>
+    {children}
+  </div>
+
+let AppCard = ({
+  app,
+  icon,
+}) => {
+  let canBrowse = app.serverInfo.error ? null : () => history.push(html`/apps/${app.slug}/browser`);
+
+  let versionMessage = app.serverInfo.error ?
+    <div className={styles.serverVersion}>Server not reachable: <span className={styles.ago}>{app.serverInfo.error.toString()}</span></div> :
+    <div className={styles.serverVersion}>
+    Server URL: <span className={styles.ago}>{app.serverURL || 'unknown'}</span>
+    Server version: <span className={styles.ago}>{app.serverInfo.parseServerVersion || 'unknown'}
+    </span>
+    </div>;
+  
+
+  return <li onClick={canBrowse}>
+    <a className={styles.icon}>
+      {icon ? <img src={'appicons/' + icon} width={56} height={56}/> : <Icon width={56} height={56} name='blank-app-outline' fill='#1e384d' />}
+    </a>
+    <div className={styles.details}>
+      <a className={styles.appname}>{app.name}</a>
+      {versionMessage}
+    </div>
+    <CountsSection className={styles.glance} title='At a glance'>
+      <AppBadge production={app.production} />
+    </CountsSection>
+  </li>
+
+};
 
 
 
@@ -41,7 +81,7 @@ export default class AppsIndex extends React.Component {
   render() {
     let search = this.state.search.toLowerCase();
     let apps = AppsManager.apps();
-   
+  
     if ( apps.length === 0) {
       return (
         <div className={styles.empty}>
