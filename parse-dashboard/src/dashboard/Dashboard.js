@@ -4,10 +4,12 @@ import ParseApp from 'lib/ParseApp';
 import React from 'react';
 
 import AccountView from './AccountView.react';
-
+import AppData from './AppData.react';
 import AppsIndex from './Apps/AppsIndex.react';
 
 import AppsManager from 'lib/AppsManager';
+import Browser from './Data/Browser/Browser.react';
+import FourOhFour from 'components/FourOhFour/FourOhFour.react';
 import history from 'dashboard/history';
 import Loader from 'components/Loader/Loader.react';
 
@@ -141,9 +143,15 @@ class Dashboard extends React.Component {
         <Redirect from='/' to='/apps' />
         <Route path='/' component={App}>
           <Route path='apps' component={AppsIndexPage} />
+          <Redirect from='apps/:appId' to='/apps/:appId/browser' />
+          <Route path='apps/:appId' component={AppData}>
+            <Route path='browser' component={false ? SchemaOverview : Browser} />
+            <Route path='browser/:className' component={Browser} />
+          </Route>
         </Route>
+        <Route path='*' component={FourOhFour} />
       </Router>
-  }
+  } 
 }
 
 module.exports = Dashboard;

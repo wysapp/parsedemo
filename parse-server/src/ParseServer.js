@@ -34,6 +34,8 @@ import { LoggerController } from './Controllers/LoggerController';
 
 import { PublicAPIRouter } from './Routers/PublicAPIRouter';
 
+import { SchemasRouter } from './Routers/SchemasRouter';
+
 import DatabaseController from './Controllers/DatabaseController';
 const SchemaController = require('./Controllers/SchemaController');
 import MongoStorageAdapter from './Adapters/Storage/Mongo/MongoStorageAdapter';
@@ -225,6 +227,7 @@ class ParseServer {
 
     let routers = [
       new ClassesRouter(),
+      new SchemasRouter(),
       new FeaturesRouter(),
     ];
 

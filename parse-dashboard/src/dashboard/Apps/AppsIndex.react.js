@@ -2,18 +2,39 @@ import React from 'react';
 import Icon from 'components/Icon/Icon.react';
 import AccountView from 'dashboard/AccountView.react';
 import AppsManager from 'lib/AppsManager';
+import history from 'dashboard/history';
+import html from 'lib/htmlString';
+import prettyNumber from 'lib/prettyNumber';
 import styles from 'dashboard/Apps/AppsIndex.scss';
 import { center } from 'stylesheets/base.scss';
 import { Link } from 'react-router';
 import AppBadge from 'components/AppBadge/AppBadge.react';
 
+function dash(value, content) {
+  if ( value === undefined) {
+    return '-';
+  }
 
+  if ( content === undefined) {
+    return value;
+  }
+  return content;
+}
 
 let CountsSection = ({className, title, children}) => 
   <div className={className}>
     <div className={styles.section}>{title}</div>
     {children}
   </div>
+
+let Metric = (props) => {
+  return (
+    <div className={styles.count}>
+      <div className={styles.number}>{props.number}</div>
+      <div className={styles.label}>{props.label}</div>
+    </div>
+  );
+};
 
 let AppCard = ({
   app,
@@ -40,6 +61,8 @@ let AppCard = ({
     </div>
     <CountsSection className={styles.glance} title='At a glance'>
       <AppBadge production={app.production} />
+      <Metric number={dash(app.users, prettyNumber(app.users))} label="total users" />
+      <Metric number={dash(app.installations, prettyNumber(app.installations))} label="total installations" />
     </CountsSection>
   </li>
 

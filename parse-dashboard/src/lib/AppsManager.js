@@ -19,6 +19,17 @@ const AppsManager = {
   },
 
 
+  findAppBySlugOrName(slugOrName) {
+    let apps = this.apps();
+    for ( let i = apps.length; i--;) {
+      if ( apps[i].slug === slugOrName || apps[i].name === slugOrName) {
+        return apps[i];
+      }
+    }
+    return null;
+  },
+
+
   getAllAppsIndexStats() {
 
     return Parse.Promise.when(this.apps().map(app => {

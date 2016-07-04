@@ -24,7 +24,6 @@ const Sidebar = ({
   section,
   appSelector,
 }) => {
-  
   const _subMenu = subsections => {
     if (!subsections) {
       return null;
@@ -33,6 +32,8 @@ const Sidebar = ({
       <div className={styles.submenu}>
         {subsections.map(({name, link}) => {
           const active = subsection === name;
+
+          
           return (
             <SidebarSubItem
               key={name}
@@ -63,7 +64,10 @@ const Sidebar = ({
         link,
         subsections,
       }) => {
+
+        
         const active = name === section;
+        
         return (
           <SidebarSection
             key={name}
